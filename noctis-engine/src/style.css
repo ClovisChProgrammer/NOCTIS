@@ -1,0 +1,114 @@
+:root {
+  color-scheme: dark;
+  font-family: ui-monospace, 'Cascadia Mono', 'Consolas', monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: #010102;
+}
+
+#view {
+  display: block;
+  position: fixed;
+  inset: 0;
+  cursor: crosshair;
+}
+
+#reticle {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  margin-left: -9px;
+  margin-top: -9px;
+  pointer-events: none;
+  z-index: 5;
+}
+#reticle::before,
+#reticle::after {
+  content: '';
+  position: absolute;
+  background: rgba(210, 235, 255, 0.8);
+  box-shadow: 0 0 4px rgba(120, 180, 255, 0.6);
+}
+#reticle::before {
+  left: 8px; top: 0; width: 2px; height: 18px;
+}
+#reticle::after {
+  top: 8px; left: 0; height: 2px; width: 18px;
+}
+
+#hud {
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  max-width: min(720px, calc(100vw - 360px));
+  padding: 12px 14px;
+  white-space: pre-wrap;
+  font-size: 12px;
+  line-height: 1.55;
+  color: #bcd2ff;
+  text-shadow: 0 0 6px rgba(90, 130, 255, 0.35);
+  background: linear-gradient(180deg, rgba(6, 10, 24, 0.55), rgba(6, 10, 24, 0.35));
+  border: 1px solid rgba(90, 130, 255, 0.18);
+  border-radius: 8px;
+  pointer-events: none;
+  user-select: none;
+}
+
+#panel {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  bottom: 16px;
+  width: 300px;
+  padding: 12px 14px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #d7e6ff;
+  background: linear-gradient(180deg, rgba(6, 10, 24, 0.72), rgba(6, 10, 24, 0.48));
+  border: 1px solid rgba(90, 130, 255, 0.22);
+  border-radius: 8px;
+  overflow: auto;
+  pointer-events: none;
+  user-select: none;
+}
+
+.panel-title {
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #9ec0ff;
+  margin-bottom: 10px;
+}
+
+.kv {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 2px 0;
+}
+
+.k { color: #89a7d9; }
+.v { color: #eef6ff; text-align: right; }
+.muted { color: #7e93b8; }
+.section { margin-top: 10px; margin-bottom: 4px; color: #9ec0ff; font-weight: 600; }
+.planets { margin: 0; padding-left: 18px; }
+.planets li { margin: 2px 0; }
+.planets li.active { color: #fff3a8; font-weight: 600; }
+.guide { white-space: pre-wrap; color: #cfe0ff; }
+
+.planets li.hover { color: #dff4ff; }
+.muted.small { font-size: 11px; line-height: 1.35; margin-top: 2px; }
+.hoverline .v { color: #dff4ff; }
+
