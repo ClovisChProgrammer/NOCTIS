@@ -66,7 +66,7 @@ function hash01(n: number): number {
   return (x >>> 0) / 4294967296
 }
 
-export function planetVisualFromCatalog(type: number, id: number, slot: number): { color: [number, number, number]; size: number; disk: number } {
+export function planetVisualFromCatalog(type: number, id: number, slot: number): { color: [number, number, number]; size: number; disk: number; ring: boolean; ringInner: number; ringOuter: number; ringTilt: number } {
   const info = PLANET_TYPES[Math.max(0, Math.min(10, type))] ?? PLANET_TYPES[1]
   const v = (hash01((id | 0) ^ (slot * 131542391)) - 0.5) * 2 // -1..1
   const boost = 1.35 // brighten for dark background
@@ -79,7 +79,12 @@ export function planetVisualFromCatalog(type: number, id: number, slot: number):
   const jitter = 1 + (hash01(((id * 2654435761) ^ slot) | 0) - 0.5) * 0.35
   const size = base * jitter
   const disk = Math.max(size * 1.15, 3.0)
-  return { color: [r, g, b], size, disk }
+  const rh = hash01((id ^ (slot * 7919)) | 0)
+  const ring = type === 6 || type === 9 || (rh > 0.94 && (type === 0 || type === 4 || type === 7))
+  const ringInner = type === 9 ? 1.35 : 1.25
+  const ringOuter = type === 9 ? 2.25 : 1.85
+  const ringTilt = (hash01(((id * 2246822519) ^ (slot * 3266489917)) | 0) - 0.5) * 0.7
+  return { color: [r, g, b], size, disk, ring, ringInner, ringOuter, ringTilt }
 }
 
 export function starVisualFromCatalog(classId: number, id: number): { color: [number, number, number]; size: number } {
